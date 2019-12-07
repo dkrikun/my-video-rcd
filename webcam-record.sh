@@ -6,7 +6,7 @@ framerate=30
 device=$(webcam-select.sh $format $dims)
 echo "device=\'$device\'"
 
-ffplay -hide_banner -loglevel error \
+ffmpeg -hide_banner -loglevel error \
     -f v4l2 -video_size $dims -framerate $framerate \
     "$@" \
-    -i $device
+    -i $device capture.mkv
