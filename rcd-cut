@@ -8,4 +8,4 @@ begin=$2
 end=$3
 output=${4:-$(rcd-suffix $input "${begin/:/_}_${end/:/_}")}
 
-rcd-ffm -ss $begin -i $input -to $end $output
+rcd-ffmpeg -ss $begin -i $input -to $end $output

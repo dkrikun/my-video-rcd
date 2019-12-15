@@ -17,7 +17,7 @@ atempo_clause="${atempo_clause:-}atempo=(1/$tmp)"
 
 #echo "atempo_clause=$atempo_clause"
 
-rcd-ffm \
+rcd-ffmpeg \
     -i $input -filter_complex \
         "[0:v]setpts=(1/$ff)*PTS[video];
          [0:a]volume=$volume,$atempo_clause[audio]" \
