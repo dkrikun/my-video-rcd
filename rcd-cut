@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Extract a part of a video from a file by its begin and end timestamps
+set -eou pipefail
+
+input=$1
+begin=$2
+end=$3
+output=${4:-$(rcd-suffix $input "${begin/:/_}_${end/:/_}")}
+
+rcd-ffm -ss $begin -i $input -to $end $output

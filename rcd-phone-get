@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Download album from phone
+set -eou pipefail
+
+album=$1
+dest=${2:-.}
+
+adb-sync -R /storage/emulated/0/DCIM/$album $dest

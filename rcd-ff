@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -eou pipefail
+
+input=$1
+ff=${2:-2}
+output=${3:-$(rcd-suffix $input ff)}
+volume=0.75
+
+tmp=$ff
+while [ $(bc <<<"$tmp > 2") == 1 ]; do
+    tmp=$(bc <<<"$tmp * 0.5")
+    atempo_clause="${atempo_clause:-}atempo=0.5,"
+done
+atempo_clause="${atempo_clause:-}atempo=(1/$tmp)"
+
+echo "atempo_clause=$atempo_clause"
+
+rcd-ffm \
+    -i $input -filter_complex \
+        "[0:v]setpts=(1/$ff)*PTS[video];
+         [0:a]volume=$volume,$atempo_clause[audio]" \
+         -map "[video]" -map "[audio]" \
+         $output

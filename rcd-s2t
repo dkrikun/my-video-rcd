@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Convert seconds to sexadecimal format
+set -eou pipefail
+ts=$1
+
+# need bc because seconds is not necessary integral
+sec=$(bc <<<$ts%60)
+min=$((($ts % 3600)/60))
+hours=$(($ts / 3600))
+
+printf "%02d:%02d:%02d\n" $hours $min $sec

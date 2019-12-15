@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Convert sexadecimal format to seconds
+set -eou pipefail
+ts=$1
+
+# subsecond will be same as $ts and $integral if there is no sub-second part
+subsecond=${ts#*.}
+integral=${ts%.*}
+
+t0=$(date --date='00:00:00' +%s)
+t=$(date --date=$integral +%s)
+secs=$(($t-$t0))
+
+if [ $subsecond = $integral ]; then
+    echo $secs
+else
+    printf "%d.%d\n" $secs $subsecond
+fi
+

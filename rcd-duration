@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Output video duration according to container
+
+set -eou pipefail
+duration=$(rcd-ffp $1 2>&1 | \
+    awk '/Duration:/ { print substr($2,0,8) }')
+
+startpts=$(rcd-ffp $1 2>&1 | sed 's/,//g' | \
+    awk '/Duration:/ { print $4 }')
+
+duration_sec=$(rcd-t2s $duration)
+echo $((duration_sec-startpts))
+

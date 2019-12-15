@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ffmpeg -y -hide_banner -nostdin -loglevel warning "$@"

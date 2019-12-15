@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Generate filename based on the original one, with a suffix; preserves
+# the original extension, if there is any
+
+set -eou pipefail
+
+input=$1
+suffix=$2
+
+base=$(basename -- "$input")
+dir=$(dirname -- "$input")
+ext=${base##*.}
+file=${base%.*}
+if [ $ext = $file ]; then
+    ext=
+else
+    ext=".$ext"
+fi
+
+output=$dir/${file}_${suffix}$ext
+echo $output

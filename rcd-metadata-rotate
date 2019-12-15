@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Rotate video using metadata
+# Useful to convert phone vertical video to horizontal
+
+set -eou pipefail
+
+input=$1
+output=${2:-$(rcd-suffix $input der)}
+angle=${3:-180}
+
+rcd-ffm -i $input -metadata:s:v rotate=$angle -codec copy $output
+

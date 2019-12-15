@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Apply fadeout effect to the video
+set -eou pipefail
+
+input=$1
+output=${2:-$(rcd-suffix $input fadeout)}
+duration=${2:-1}
+
+len=$(rcd-duration $input)
+begin_fadeout=$(bc <<<$len-$duration)
+ffm -i $input \
+    -filter_complex \
+    "[0:v]fade=t=out:st=$begin_fadeout:d=$duration;
+     [0:a]afade=t=out:st=$begin_fadeout:d=$duration" \
+        $output
+
