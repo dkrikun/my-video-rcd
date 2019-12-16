@@ -7,7 +7,7 @@ input=$1
 output=${2:-$(rcd-suffix $input fadein)}
 duration=${2:-1}
 
-ffm -i $input \
+rcd-ffmpeg -i $input \
     -filter_complex \
     "[0:v]fade=t=in:d=$duration;[0:a]afade=t=in:d=$duration" \
         $output

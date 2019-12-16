@@ -9,7 +9,7 @@ duration=${2:-1}
 
 len=$(rcd-duration $input)
 begin_fadeout=$(bc <<<$len-$duration)
-ffm -i $input \
+rcd-ffmpeg -i $input \
     -filter_complex \
     "[0:v]fade=t=out:st=$begin_fadeout:d=$duration;
      [0:a]afade=t=out:st=$begin_fadeout:d=$duration" \
