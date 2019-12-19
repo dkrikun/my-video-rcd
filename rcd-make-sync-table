@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -eou pipefail
+
+# empirically measured offset
+offset=${RCD_OFFSET:-00:00:10}
+
+main=$1
+main_ts0=$(rcd-obs-ftime $main)
+
+while read line
+do
+    file=$line
+    phone_ts0=$(rcd-phone-ftime $file)
+    rel_ts=$(rcd-diff-ts $phone_ts0 $main_ts0)
+    rel_ts_adj=$(rcd-add-ts $rel_ts $offset)
+    duration=$(rcd-duration $file)
+    duration_ts=$(rcd-s2t $duration)
+    rel_ts_end=$(rcd-add-ts $rel_ts_adj $duration_ts)
+    echo $file $rel_ts_adj $rel_ts_end
+done

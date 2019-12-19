@@ -3,5 +3,5 @@
 # Extract timestamp from OBS created filename
 set -eou pipefail
 
-set filename=$1
-cut --output-delimeter=: -c12-13,15-16,18-19 <<<$filename
+filename=$(basename $1)
+cut --output-delimiter=: -c12-13,15-16,18-19 <<<$filename

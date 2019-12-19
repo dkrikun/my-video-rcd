@@ -3,5 +3,5 @@
 # Extract timestamp from phone created filename
 set -eou pipefail
 
-set filename=$1
+filename=$(basename $1)
 cut --output-delimiter=: -c10-11,12-13,14-15 <<<$filename

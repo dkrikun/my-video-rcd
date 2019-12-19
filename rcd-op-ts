@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -eou pipefail
+
+op=$1
+ts1=$2
+ts2=$3
+
+sec1=$(rcd-t2s $ts1)
+sec2=$(rcd-t2s $ts2)
+sec=$(bc <<<"$sec1 $op $sec2")
+ts=$(rcd-s2t $sec)
+echo $ts

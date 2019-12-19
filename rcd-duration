@@ -10,5 +10,5 @@ startpts=$(rcd-ffprobe $1 2>&1 | sed 's/,//g' | \
     awk '/Duration:/ { print $4 }')
 
 duration_sec=$(rcd-t2s $duration)
-echo $((duration_sec-startpts))
+echo $(bc<<<$duration_sec-$startpts)
 

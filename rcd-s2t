@@ -5,8 +5,11 @@ set -eou pipefail
 ts=$1
 
 # need bc because seconds is not necessary integral
-sec=$(bc <<<$ts%60)
-min=$((($ts % 3600)/60))
-hours=$(($ts / 3600))
+subsec=$(bc <<<$ts%1)
+sec=$(bc <<<"($ts-$subsec)%60")
+sec=${sec%.*}
+min=$(bc <<<"($ts % 3600)/60")
+hours=$(bc <<<"$ts / 3600")
+subsec=${subsec#*.}
 
-printf "%02d:%02d:%02d\n" $hours $min $sec
+printf "%02d:%02d:%02d.%d\n" $hours $min $sec $subsec

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rcd-op-ts "-" $1 $2
